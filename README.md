@@ -1,0 +1,3 @@
+# Snippetry
+
+## Life. Coded.
