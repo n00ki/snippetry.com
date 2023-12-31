@@ -31,7 +31,6 @@
   });
 
   const get_next_snippets = async () => {
-    if (snippets.length <= 10) return;
     const next_snippets = await fetch(`/api/snippets?skip=${snippets_count}`).then((res) =>
       res.json()
     );
