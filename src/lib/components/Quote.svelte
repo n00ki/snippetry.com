@@ -35,8 +35,9 @@
     <div
       class="md:text-md inline-flex flex-wrap items-center justify-center whitespace-pre text-sm leading-7"
     >
-      Write it in code <DoubleArrowDown /> or <Button on:click={get_random_quote} variant="outline"
-        >generate a new quote</Button
+      Choose a programming language and transform it into code <DoubleArrowDown /> or <Button
+        on:click={get_random_quote}
+        variant="outline">generate a new quote</Button
       >
     </div>
   </div>
