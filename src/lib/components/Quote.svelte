@@ -5,7 +5,7 @@
 
   // Stores
   import { quote } from '$lib/stores/quote';
-  import { quote_ready } from '$lib/stores/ready';
+  import { isQuoteReady } from '$lib/stores/status';
 
   // Components
   import { Button } from '$components/ui/button';
@@ -14,11 +14,11 @@
   import { DoubleArrowDown } from 'radix-icons-svelte';
 
   onMount(async () => {
-    await get_random_quote();
-    $quote_ready = true;
+    await getRandomQuote();
+    $isQuoteReady = true;
   });
 
-  async function get_random_quote() {
+  async function getRandomQuote() {
     const res = await fetch('https://api.quotable.io/quotes/random').then((res) => res.json());
     $quote.author = res[0]?.author ?? '';
     $quote.content = res[0]?.content ?? '';
@@ -36,7 +36,7 @@
       class="md:text-md inline-flex flex-wrap items-center justify-center whitespace-pre text-sm leading-7"
     >
       Choose a programming language and transform it into code <DoubleArrowDown /> or <Button
-        on:click={get_random_quote}
+        on:click={getRandomQuote}
         variant="outline">generate a new quote</Button
       >
     </div>

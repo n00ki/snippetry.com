@@ -1,9 +1,8 @@
-import type { NumericRange } from 'sveltekit-superforms/dist/utils';
-import { fail, type RequestEvent } from '@sveltejs/kit';
+import { fail, type NumericRange, type RequestEvent } from '@sveltejs/kit';
 import { setError } from 'sveltekit-superforms/server';
 import { setFlash } from 'sveltekit-flash-message/server';
 
-export const form_fail = (
+export const setFail = (
   form: any,
   opts?: { status?: NumericRange<400, 599>; remove_sensitive_data?: string[]; event?: RequestEvent }
 ) => {
@@ -25,7 +24,7 @@ export const form_fail = (
   return fail(opts?.status ?? 400, { form });
 };
 
-export const set_form_error = (
+export const setFormError = (
   form: any,
   text: string,
   opts?: { status?: NumericRange<400, 599>; field?: string; remove_sensitive_data?: string[] },

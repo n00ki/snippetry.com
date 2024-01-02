@@ -13,21 +13,21 @@
 
   export let snippets: SnippetType[];
 
-  function highlight_snippets(element: HTMLElement) {
-    for (const inner_element of element.querySelectorAll('pre code')) {
-      const code_snippet = inner_element as HTMLElement;
-      if (code_snippet.dataset.highlighted !== 'yes') {
-        hljs.highlightElement(code_snippet);
+  function highlightSnippets(element: HTMLElement) {
+    for (const innerElement of element.querySelectorAll('pre code')) {
+      const codeSnippet = innerElement as HTMLElement;
+      if (codeSnippet.dataset.highlighted !== 'yes') {
+        hljs.highlightElement(codeSnippet);
       }
     }
   }
 
-  export function highlight_new_snippets() {
-    highlight_snippets(document.getElementById('snippets-wrapper')!);
+  export function rehighlight() {
+    highlightSnippets(document.getElementById('snippets-wrapper')!);
   }
 </script>
 
-<div id="snippets-wrapper" class="my-4 flex flex-col gap-2" use:highlight_snippets>
+<div id="snippets-wrapper" class="my-4 flex flex-col gap-2" use:highlightSnippets>
   {#if snippets}
     {#each snippets as snippet}
       <Snippet {snippet} />

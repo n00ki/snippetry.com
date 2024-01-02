@@ -1,14 +1,19 @@
 <script lang="ts">
-  import { language, content } from '$lib/stores/snippet';
+  // Utils
   import { Editor } from '@tiptap/core';
-  import { common, createLowlight } from 'lowlight';
   import Document from '@tiptap/extension-document';
   import Text from '@tiptap/extension-text';
   import Paragraph from '@tiptap/extension-paragraph';
   import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+  import { common, createLowlight } from 'lowlight';
+
+  // Components
   import * as DropdownMenu from '$components/ui/dropdown-menu';
   import Button from '$components/ui/button/button.svelte';
-  import { editor_ready } from '$lib/stores/ready';
+
+  // Stores
+  import { isEditorReady } from '$lib/stores/status';
+  import { language, content } from '$lib/stores/snippet';
 
   let editor: Editor;
   const lowlight = createLowlight(common);
@@ -28,7 +33,7 @@
 
   $language = 'JavaScript';
 
-  function snippet_editor(editorElement: HTMLElement) {
+  function snippetEditor(editorElement: HTMLElement) {
     editor = new Editor({
       element: editorElement,
       extensions: [
@@ -50,7 +55,7 @@
       onCreate: () => {
         editor.commands.setCodeBlock({ language: $language.toLowerCase() });
         editor.commands.focus('start');
-        $editor_ready = true;
+        $isEditorReady = true;
       },
       onTransaction: () => {
         // force re-render so `editor.isActive` works as expected
@@ -77,14 +82,14 @@
     };
   }
 
-  function update_language(lang: string) {
+  function updateLanguage(lang: string) {
     $language = lang;
     editor.chain().focus().setCodeBlock({ language: $language.toLowerCase() }).run();
     console.log(`Language changed to ${$language}`);
     document?.getElementById('editor')?.focus();
   }
 
-  export function reset_editor() {
+  export function resetEditorContent() {
     $content = { text: '', html: '' };
     editor = editor;
     editor.chain().focus().clearContent().run();
@@ -105,12 +110,12 @@
       <DropdownMenu.Content>
         <DropdownMenu.Group>
           {#each languages as lang}
-            <DropdownMenu.Item on:click={() => update_language(lang)}>{lang}</DropdownMenu.Item>
+            <DropdownMenu.Item on:click={() => updateLanguage(lang)}>{lang}</DropdownMenu.Item>
           {/each}
         </DropdownMenu.Group>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   </div>
 
-  <div use:snippet_editor />
+  <div use:snippetEditor />
 </div>

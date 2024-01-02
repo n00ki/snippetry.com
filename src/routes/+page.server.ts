@@ -4,27 +4,27 @@ import { type Actions } from '@sveltejs/kit';
 // Utils
 import db from '$lib/server/database';
 import { snippets } from '$lib/db/models/snippets';
-import { snippets_schema } from '$lib/validations/snippets';
+import { snippetsSchema } from '$lib/validations/snippets';
 import { desc, eq } from 'drizzle-orm';
 import { superValidate as validate } from 'sveltekit-superforms/server';
 import { redirect } from 'sveltekit-flash-message/server';
-import { form_fail, set_form_error } from '$lib/utils/helpers/forms';
+import { setFail, setFormError } from '$lib/utils/helpers/forms';
 
 export async function load() {
-  const form = await validate(snippets_schema);
+  const form = await validate(snippetsSchema);
 
   return {
-    snippets: await get_snippets(),
+    snippets: await getSnippets(),
     form
   };
 }
 
 export const actions: Actions = {
   add: async (event) => {
-    const form = await validate(event.request, snippets_schema);
+    const form = await validate(event.request, snippetsSchema);
 
     if (!form.valid) {
-      return set_form_error(form, Object.values(form.errors)[0].toString(), { status: 400 }, event);
+      return setFormError(form, Object.values(form.errors)[0].toString(), { status: 400 }, event);
     }
 
     const { text, html, language, quote_author, quote_content } = form.data;
@@ -39,7 +39,7 @@ export const actions: Actions = {
       });
     } catch (error) {
       console.log(error);
-      form_fail(form, { event });
+      setFail(form, { event });
     }
 
     redirect(
@@ -53,7 +53,7 @@ export const actions: Actions = {
   }
 };
 
-async function get_snippets(limit = 10, skip = 0) {
+async function getSnippets(limit = 10, skip = 0) {
   try {
     return await db
       .select()

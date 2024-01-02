@@ -4,10 +4,10 @@ import { snippets, type SnippetType } from '$lib/db/models/snippets';
 import { desc, eq } from 'drizzle-orm';
 
 export const GET: RequestHandler = async ({ url }) => {
-  let snippets_list: SnippetType[] = [];
+  let snippetsList: SnippetType[] = [];
   const skip = parseInt(url.searchParams.get('skip') as string);
   try {
-    snippets_list = await db
+    snippetsList = await db
       .select()
       .from(snippets)
       .where(eq(snippets.status, 'approved'))
@@ -15,8 +15,8 @@ export const GET: RequestHandler = async ({ url }) => {
       .offset(skip ?? 0)
       .limit(10);
   } catch (error) {
-    snippets_list = [];
+    snippetsList = [];
   }
 
-  return json(snippets_list);
+  return json(snippetsList);
 };

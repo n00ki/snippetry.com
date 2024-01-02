@@ -29,10 +29,10 @@
 
   // Disable scroll handling on same route navigation for theme switching
   onNavigate((navigation) => {
-    const previous_route = navigation.from?.url.pathname;
-    const current_route = navigation.to?.url.pathname;
+    const previousRoute = navigation.from?.url.pathname;
+    const currentRoute = navigation.to?.url.pathname;
 
-    if (previous_route === current_route) {
+    if (previousRoute === currentRoute) {
       disableScrollHandling();
     }
   });

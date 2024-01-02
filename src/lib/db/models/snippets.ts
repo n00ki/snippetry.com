@@ -9,7 +9,7 @@ import {
   pgEnum,
   uniqueIndex
 } from 'drizzle-orm/pg-core';
-import { generate_public_id } from '../../utils/helpers/nanoid';
+import { generatePublicId } from '../../utils/helpers/nanoid';
 
 export const status_enum = pgEnum('status', ['pending', 'approved', 'rejected']);
 
@@ -20,7 +20,7 @@ export const snippets = pgTable(
     public_id: varchar('public_id', { length: 10 })
       .notNull()
       .unique()
-      .$default(() => generate_public_id()),
+      .$default(() => generatePublicId()),
     text: text('text').notNull(),
     html: text('html').notNull(),
     language: text('language').notNull(),
