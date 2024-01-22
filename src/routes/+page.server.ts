@@ -9,6 +9,7 @@ import { desc, eq } from 'drizzle-orm';
 import { superValidate as validate } from 'sveltekit-superforms/server';
 import { redirect } from 'sveltekit-flash-message/server';
 import { setFail, setFormError } from '$lib/utils/helpers/forms';
+import { logsnag } from '$lib/server/logsnag';
 
 export async function load() {
   const form = await validate(snippetsSchema);
@@ -40,6 +41,18 @@ export const actions: Actions = {
     } catch (error) {
       console.log(error);
       setFail(form, { event });
+    }
+
+    try {
+      await logsnag.track({
+        channel: 'submissions',
+        event: 'New Submission',
+        icon: '🚀',
+        description: `A new snippet has been submitted for review!`,
+        notify: true
+      });
+    } catch (error) {
+      console.log(error);
     }
 
     redirect(
