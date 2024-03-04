@@ -1,12 +1,25 @@
 <script lang="ts">
   // Utils
   import { type SnippetType } from '$lib/db/models/snippets';
+  import { onMount } from 'svelte';
+  import { codeToHtml } from 'shiki';
   import { fade } from 'svelte/transition';
 
   // Components
   import * as Card from '$components/ui/card';
 
   export let snippet: SnippetType;
+  let highlightedSnippet: string;
+
+  onMount(async () => {
+    highlightedSnippet = await codeToHtml(snippet?.text, {
+      lang: snippet?.language || 'javascript',
+      themes: {
+        light: 'ayu-dark',
+        dark: 'poimandres'
+      }
+    });
+  });
 </script>
 
 <div transition:fade>
@@ -20,8 +33,8 @@
       </div>
     </Card.Header>
     <Card.Content>
-      <div class="overflow-hidden rounded-xl text-sm md:text-lg">
-        {@html snippet?.html}
+      <div class="overflow-hidden rounded-lg bg-editor p-4 text-sm">
+        {@html highlightedSnippet}
       </div>
     </Card.Content>
   </Card.Root>

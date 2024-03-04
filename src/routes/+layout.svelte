@@ -17,7 +17,6 @@
 
   // Styles
   import '../styles/app.css';
-  import 'highlight.js/styles/nord.min.css';
 
   const flash = getFlash(page, {
     clearAfterMs: 5000

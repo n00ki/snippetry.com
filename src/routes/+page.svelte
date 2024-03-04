@@ -8,6 +8,7 @@
   import { isEditorReady, isQuoteReady } from '$lib/stores/status.js';
   import { language, content } from '$lib/stores/snippet.js';
   import { quote } from '$lib/stores/quote';
+  import { getHighlighter } from 'shiki';
 
   // Components
   import Quote from '$components/Quote.svelte';
@@ -26,7 +27,7 @@
   let snippetsCount = 10;
   let shouldLoadMore: boolean = true;
 
-  onMount(() => {
+  onMount(async () => {
     $content = { text: '', html: '' };
   });
 
@@ -36,7 +37,6 @@
     );
     snippets = [...snippets, ...nextSnippets];
     snippetsCount += 10;
-    snippetsListComponent.rehighlight();
 
     if (nextSnippets.length === 0) {
       shouldLoadMore = false;

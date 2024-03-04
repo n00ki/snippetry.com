@@ -2,7 +2,6 @@
   // Utils
   import { type SnippetType } from '$lib/db/models/snippets';
   import { enhance } from '$app/forms';
-  import hljs from 'highlight.js';
 
   // Stores
   import { page } from '$app/stores';
@@ -12,22 +11,9 @@
   import { Button } from '$components/ui/button';
 
   export let snippets: SnippetType[];
-
-  function highlightSnippets(element: HTMLElement) {
-    for (const innerElement of element.querySelectorAll('pre code')) {
-      const codeSnippet = innerElement as HTMLElement;
-      if (codeSnippet.dataset.highlighted !== 'yes') {
-        hljs.highlightElement(codeSnippet);
-      }
-    }
-  }
-
-  export function rehighlight() {
-    highlightSnippets(document.getElementById('snippets-wrapper')!);
-  }
 </script>
 
-<div id="snippets-wrapper" class="my-4 flex flex-col gap-2" use:highlightSnippets>
+<div id="snippets-wrapper" class="my-4 flex flex-col gap-2">
   {#if snippets}
     {#each snippets as snippet}
       <Snippet {snippet} />
