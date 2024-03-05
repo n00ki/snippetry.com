@@ -33,9 +33,38 @@
       </div>
     </Card.Header>
     <Card.Content>
-      <div class="overflow-hidden rounded-lg bg-editor p-4 text-sm">
+      <div class="bg-editor scrollbar overflow-auto rounded-lg p-4 text-sm">
         {@html highlightedSnippet}
       </div>
     </Card.Content>
   </Card.Root>
 </div>
+
+<style>
+  /* WebKit-based browser scrollbar styles */
+  ::-webkit-scrollbar {
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #cfcfcf;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #cfcfc4;
+  }
+
+  .scrollbar {
+    scrollbar-color: #cfcfcf transparent;
+    scrollbar-width: thin;
+  }
+
+  .scrollbar:hover {
+    scrollbar-color: #cfcfc4 transparent;
+  }
+</style>
