@@ -8,7 +8,6 @@
   import { isEditorReady, isQuoteReady } from '$lib/stores/status.js';
   import { language, content } from '$lib/stores/snippet.js';
   import { quote } from '$lib/stores/quote';
-  import { getHighlighter } from 'shiki';
 
   // Components
   import Quote from '$components/Quote.svelte';
@@ -32,9 +31,7 @@
   });
 
   const getNextSnippets = async () => {
-    const nextSnippets = await fetch(`/api/snippets?skip=${snippetsCount}`).then((res) =>
-      res.json()
-    );
+    const nextSnippets = await fetch(`/api/snippets?skip=${snippetsCount}`).then((res) => res.json());
     snippets = [...snippets, ...nextSnippets];
     snippetsCount += 10;
 
@@ -76,8 +73,8 @@
         <input type="hidden" name="text" value={$content.text} />
         <input type="hidden" name="html" value={$content.html} />
         <input type="hidden" name="language" value={$language} />
-        <input type="hidden" name="quote_author" value={$quote.author} />
-        <input type="hidden" name="quote_content" value={$quote.content} />
+        <input type="hidden" name="quoteAuthor" value={$quote.author} />
+        <input type="hidden" name="quoteContent" value={$quote.content} />
         <Button type="submit" class="w-full rounded-t-none border-t-0">SUBMIT</Button>
       </form>
     </div>

@@ -12,10 +12,6 @@
   export { className as class };
 </script>
 
-<svelte:element
-  this={level}
-  class={cn('mb-1 font-medium leading-none tracking-tight', className)}
-  {...$$restProps}
->
+<svelte:element this={level} class={cn('mb-1 font-medium leading-none tracking-tight', className)} {...$$restProps}>
   <slot />
 </svelte:element>

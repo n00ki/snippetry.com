@@ -15,11 +15,7 @@ export const setFail = (
     }
   }
 
-  if (opts?.event)
-    setFlash(
-      { type: 'error', message: 'Something went wrong. Please try again later.' },
-      opts.event
-    );
+  if (opts?.event) setFlash({ type: 'error', message: 'Something went wrong. Please try again later.' }, opts.event);
 
   return fail(opts?.status ?? 400, { form });
 };

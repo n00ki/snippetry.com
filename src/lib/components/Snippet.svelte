@@ -1,6 +1,6 @@
 <script lang="ts">
   // Utils
-  import { type SnippetType } from '$lib/db/models/snippets';
+  import { type SnippetType } from '$models/snippet';
   import { onMount } from 'svelte';
   import { codeToHtml } from 'shiki';
   import { fade } from 'svelte/transition';
@@ -27,13 +27,13 @@
     <Card.Header>
       <div class="flex w-full flex-nowrap">
         <div class="flex-1">
-          <Card.Title>{snippet?.quote_author}</Card.Title>
-          <Card.Description>{snippet?.quote_content}</Card.Description>
+          <Card.Title>{snippet?.quoteAuthor}</Card.Title>
+          <Card.Description>{snippet?.quoteContent}</Card.Description>
         </div>
       </div>
     </Card.Header>
     <Card.Content>
-      <div class="bg-editor scrollbar overflow-auto rounded-lg p-4 text-sm">
+      <div class="scrollbar overflow-auto rounded-lg bg-editor p-4 text-sm">
         {@html highlightedSnippet}
       </div>
     </Card.Content>

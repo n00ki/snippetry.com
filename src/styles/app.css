@@ -6,8 +6,7 @@
   /* Reference name */
   font-family: 'Source Code Pro';
   /* For multiple files use commas, ex: url(), url(), ... */
-  src: url('/fonts/SourceCodePro-VariableFont.ttf'),
-    url('/fonts/SourceCodePro-Italic-VariableFont.ttf');
+  src: url('/fonts/SourceCodePro-VariableFont.ttf'), url('/fonts/SourceCodePro-Italic-VariableFont.ttf');
 }
 
 @layer base {

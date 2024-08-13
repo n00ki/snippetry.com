@@ -18,18 +18,7 @@
   let editor: Editor;
   const lowlight = createLowlight(common);
 
-  const languages = [
-    'JavaScript',
-    'TypeScript',
-    'Go',
-    'Ruby',
-    'PHP',
-    'Rust',
-    'Python',
-    'Java',
-    'CSS',
-    'YAML'
-  ];
+  const languages = ['JavaScript', 'TypeScript', 'Go', 'Ruby', 'PHP', 'Rust', 'Python', 'Java', 'CSS', 'YAML'];
 
   $language = 'JavaScript';
 

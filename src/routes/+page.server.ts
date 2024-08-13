@@ -3,16 +3,17 @@ import { type Actions } from '@sveltejs/kit';
 
 // Utils
 import db from '$lib/server/database';
-import { snippets } from '$lib/db/models/snippets';
-import { snippetsSchema } from '$lib/validations/snippets';
-import { desc, eq } from 'drizzle-orm';
+import { Snippet, type SnippetType } from '$models/snippet';
+import { createSnippetSchema } from '$lib/validations/snippet';
+import { zod } from 'sveltekit-superforms/adapters';
+import { eq } from 'drizzle-orm';
 import { superValidate as validate } from 'sveltekit-superforms/server';
 import { redirect } from 'sveltekit-flash-message/server';
 import { setFail, setFormError } from '$lib/utils/helpers/forms';
 import { logsnag } from '$lib/server/logsnag';
 
 export async function load() {
-  const form = await validate(snippetsSchema);
+  const form = await validate(zod(createSnippetSchema));
 
   return {
     snippets: await getSnippets(),
@@ -22,21 +23,21 @@ export async function load() {
 
 export const actions: Actions = {
   add: async (event) => {
-    const form = await validate(event.request, snippetsSchema);
+    const form = await validate(event.request, zod(createSnippetSchema));
 
     if (!form.valid) {
       return setFormError(form, Object.values(form.errors)[0].toString(), { status: 400 }, event);
     }
 
-    const { text, html, language, quote_author, quote_content } = form.data;
+    const { text, html, language, quoteAuthor, quoteContent } = form.data;
 
     try {
-      await db.insert(snippets).values({
+      await db.insert(Snippet).values({
         text: text,
         html: html,
         language: language.toLowerCase(),
-        quote_author: quote_author,
-        quote_content: quote_content
+        quoteAuthor: quoteAuthor,
+        quoteContent: quoteContent
       });
     } catch (error) {
       console.log(error);
@@ -68,13 +69,14 @@ export const actions: Actions = {
 
 async function getSnippets(limit = 10, skip = 0) {
   try {
-    return await db
-      .select()
-      .from(snippets)
-      .where(eq(snippets.status, 'approved'))
-      .orderBy(desc(snippets.created_at))
-      .offset(skip)
-      .limit(limit);
+    const snippets: SnippetType[] = await db.query.Snippet.findMany({
+      where: eq(Snippet.status, 'approved'),
+      orderBy: (snippets, { desc }) => desc(snippets.createdAt),
+      offset: skip,
+      limit: limit
+    });
+
+    return snippets;
   } catch (error) {
     console.log(error);
     return [];

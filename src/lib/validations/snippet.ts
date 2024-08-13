@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const snippetsSchema = z.object({
+export const createSnippetSchema = z.object({
   text: z
     .string({ required_error: 'Snippet content is required' })
     .trim()
@@ -15,11 +15,11 @@ export const snippetsSchema = z.object({
     .string({ required_error: 'Snippet language is required' })
     .trim()
     .min(1, { message: 'Snippet language is required' }),
-  quote_author: z
+  quoteAuthor: z
     .string({ required_error: 'Quote author is required' })
     .trim()
     .min(1, { message: 'Quote author is required' }),
-  quote_content: z
+  quoteContent: z
     .string({ required_error: 'Quote content is required' })
     .trim()
     .min(1, { message: 'Quote content is required' })

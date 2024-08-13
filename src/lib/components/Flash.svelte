@@ -9,8 +9,7 @@
   import { CheckCircled, ExclamationTriangle, CrossCircled } from 'radix-icons-svelte';
 
   export let type: 'success' | 'error' | 'warning';
-  const title: string =
-    type === 'success' ? 'Success!' : type === 'error' ? 'Whoops...' : 'Warning!';
+  const title: string = type === 'success' ? 'Success!' : type === 'error' ? 'Whoops...' : 'Warning!';
   export let message: string;
 </script>
 

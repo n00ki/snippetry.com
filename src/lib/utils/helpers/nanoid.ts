@@ -1,9 +1,11 @@
 import { customAlphabet } from 'nanoid';
 
-const PUBLIC_ID_ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyz';
-const PUBLIC_ID_LENGTH = 10;
+const ID_ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyz';
+const TOKEN_ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_';
+const ID_LENGTH = 12;
+const TOKEN_LENGTH = 64;
 
-export function generatePublicId(): string {
-  const nanoid = customAlphabet(PUBLIC_ID_ALPHABET, PUBLIC_ID_LENGTH);
+export function generateNanoId(opts?: { token?: boolean }) {
+  const nanoid = customAlphabet(opts?.token ? TOKEN_ALPHABET : ID_ALPHABET, opts?.token ? TOKEN_LENGTH : ID_LENGTH);
   return nanoid();
 }

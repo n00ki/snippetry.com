@@ -1,10 +1,8 @@
 <script lang="ts">
   import { PUBLIC_BASE_URL } from '$env/static/public';
 
-  const metaWide =
-    'https://res.cloudinary.com/nshemesh/image/upload/v1703964213/snippetry/meta_wide.png';
-  const metaSquare =
-    'https://res.cloudinary.com/nshemesh/image/upload/v1703964215/snippetry/meta_square.png';
+  const metaWide = 'https://res.cloudinary.com/nshemesh/image/upload/v1703964213/snippetry/meta_wide.png';
+  const metaSquare = 'https://res.cloudinary.com/nshemesh/image/upload/v1703964215/snippetry/meta_square.png';
 
   export let title: string;
   export let description: string;

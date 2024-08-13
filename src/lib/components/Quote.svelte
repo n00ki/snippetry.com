@@ -19,9 +19,18 @@
   });
 
   async function getRandomQuote() {
-    const res = await fetch('https://api.quotable.io/quotes/random').then((res) => res.json());
-    $quote.author = res[0]?.author ?? '';
-    $quote.content = res[0]?.content ?? '';
+    try {
+      const quote = await fetch('api/quote').then((res) => res.json());
+      if (quote.error) {
+        $quote.content = 'An error occurred while fetching the quote';
+        return;
+      }
+
+      $quote.author = quote[0]?.author ?? '';
+      $quote.content = quote[0]?.content ?? '';
+    } catch (error) {
+      console.log(error);
+    }
     document?.getElementById('editor')?.focus();
   }
 </script>
@@ -32,13 +41,9 @@
       <h1 class="text-md mb-2 font-medium md:text-xl">{$quote.content}</h1>
       <h2 class="md:text-md text-md font-sans">{$quote.author}</h2>
     </div>
-    <div
-      class="over md:text-md inline-flex flex-wrap items-center justify-center whitespace-pre text-sm leading-7"
-    >
-      Write it in code <DoubleArrowDown /> or <Button
-        on:click={getRandomQuote}
-        variant="outline"
-        class="cursor-pointer">generate a new quote</Button
+    <div class="over md:text-md inline-flex flex-wrap items-center justify-center whitespace-pre text-sm leading-7">
+      Write it in code <DoubleArrowDown /> or <Button on:click={getRandomQuote} variant="outline" class="cursor-pointer"
+        >generate a new quote</Button
       >
     </div>
   </div>

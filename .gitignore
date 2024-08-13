@@ -6,7 +6,7 @@ node_modules
 .env
 .env.*
 !.env.example
-dev.db
+*.db
 /test-results
 /.vscode
 .vercel
