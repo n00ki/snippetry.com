@@ -26,8 +26,8 @@
         return;
       }
 
-      $quote.author = quote[0]?.author ?? '';
-      $quote.content = quote[0]?.content ?? '';
+      $quote.author = quote?.author ?? '';
+      $quote.content = quote?.quote ?? '';
     } catch (error) {
       console.log(error);
     }
