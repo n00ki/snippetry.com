@@ -3,7 +3,6 @@
   import { onNavigate, disableScrollHandling } from '$app/navigation';
   import { browser } from '$app/environment';
   import { getFlash } from 'sveltekit-flash-message/client';
-  import * as Fathom from 'fathom-client';
 
   // Stores
   import { page } from '$app/stores';
@@ -21,10 +20,6 @@
   const flash = getFlash(page, {
     clearAfterMs: 5000
   });
-
-  if (browser) {
-    Fathom.load('TCGQXZSU');
-  }
 
   // Disable scroll handling on same route navigation for theme switching
   onNavigate((navigation) => {
